@@ -1,0 +1,138 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.quiz-container {
+  width: 50%;
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 20px;
+  background: rgb(202, 182, 186);
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+input {
+  padding: 10px;
+  width: 80%;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-right: 5px;
+}
+
+button {
+  background: #ff5733;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #e74c3c;
+}
+
+img {
+  margin-top: 10px;
+  max-width: 100%;
+  border-radius: 5px;
+}
+
+.restart-container {
+  text-align: left;
+  width: 100%;
+}
+
+.restart-container button {
+  background-color: #ff5733;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.restart-container button:hover {
+  background-color: #e74c3c;
+}
+
+.autocomplete-container {
+  position: relative;
+  width: 100%;
+}
+
+.suggestions-container {
+  position: absolute;
+  top: 40px;
+  width: 84%;
+  max-height: 150px;
+  overflow-y: auto; 
+  background-color: white;
+  border: 1px solid #ccc;
+  z-index: 10; 
+  right: 46px;
+}
+
+.suggestion-item {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.suggestion-item:hover {
+  background-color: #f0f0f0;
+}
+
+.suggestion-item img {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+  border-radius: 50%;
+}
+
+
+.input-container {
+  display: flex;
+  align-items: center; 
+  justify-content: center; 
+  width: 100%;
+}
+
+input {
+  padding: 10px;
+  width: 80%;
+  margin-right: 10px; 
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+button {
+  background: #ff5733;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #e74c3c;
+}
+
+.correct-answer {
+  color: green;
+  font-weight: bold;
+}
+
+.incorrect-answer {
+  color: red;
+  font-weight: bold;
+}
