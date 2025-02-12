@@ -3,7 +3,6 @@ import pokemonData from "../data/pokemonData";
 import PokemonAutocomplete from "../components/PokemonAutocomplete";
 import "../styles/Quiz.css";
 
-// Fonction pour enlever les accents
 const removeAccents = (str) => {
   return str.normalize("NFD").replace(/[̀-ͯ]/g, "");
 };
@@ -92,7 +91,6 @@ const Quiz = () => {
       }, 2000);
     }
   };
-  
 
   const handleRestartQuiz = () => {
     setQuizStarted(false);
@@ -163,7 +161,8 @@ const Quiz = () => {
   );
 };
 
-export default Quiz;
+export default Quiz; 
+
 
 
 
