@@ -1,13 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
-import pokemonData from "../data/pokemonData";
 
 const removeAccents = (str) => {
   return str.normalize("NFD").replace(/[̀-ͯ]/g, "");
 };
 
-const PokemonAutocomplete = ({ onSelectPokemon, inputValue, setInputValue }) => {
+const PokemonAutocomplete = ({ onSelectPokemon, inputValue, setInputValue, pokemonData }) => {
   const [suggestions, setSuggestions] = useState([]);
-  const autocompleteRef = useRef(null); 
+  const autocompleteRef = useRef(null);
 
   const handleInputChange = (e) => {
     const value = e.target.value;
@@ -29,11 +28,10 @@ const PokemonAutocomplete = ({ onSelectPokemon, inputValue, setInputValue }) => 
     onSelectPokemon(pokemonName);
   };
 
-  
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (autocompleteRef.current && !autocompleteRef.current.contains(e.target)) {
-        setSuggestions([]); 
+        setSuggestions([]);
       }
     };
 
@@ -56,7 +54,7 @@ const PokemonAutocomplete = ({ onSelectPokemon, inputValue, setInputValue }) => 
         <div className="suggestions-container">
           {suggestions.map((pokemon) => (
             <div
-              key={pokemon.id}
+              key={pokemon.name}
               onClick={() => handleSuggestionClick(pokemon.name)}
               className="suggestion-item"
             >
@@ -75,11 +73,6 @@ const PokemonAutocomplete = ({ onSelectPokemon, inputValue, setInputValue }) => 
 };
 
 export default PokemonAutocomplete;
-
-
-
-
-
 
 
 

@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
-import pokemonData from "../data/pokemonData";
-import PokemonAutocomplete from "../components/PokemonAutocomplete";
+import React, { useState, useEffect, useRef } from "react";
+import PokemonAutocomplete from "./PokemonAutocomplete"; 
 import "../styles/Quiz.css";
 
 const removeAccents = (str) => {
@@ -17,8 +16,38 @@ const Quiz = () => {
   const [finalMessage, setFinalMessage] = useState("");
   const [askedQuestions, setAskedQuestions] = useState([]);
   const [correctPokemonImage, setCorrectPokemonImage] = useState("");
-
+  const [pokemonData, setPokemonData] = useState([]);  
   const [inputValue, setInputValue] = useState(""); 
+
+  const fetchPokemonData = async () => {
+    const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=151");
+    const data = await response.json();
+    const pokemonArray = await Promise.all(
+      data.results.map(async (pokemon) => {
+        const pokemonDetails = await fetch(pokemon.url).then((res) => res.json());
+        const speciesDetails = await fetch(pokemonDetails.species.url).then((res) => res.json());
+
+        const frenchName = speciesDetails.names.find(
+          (name) => name.language.name === "fr"
+        )?.name;
+
+        const frenchDescription = speciesDetails.flavor_text_entries.find(
+          (entry) => entry.language.name === "fr"
+        )?.flavor_text || "Description non disponible";
+
+        return {
+          name: frenchName || pokemonDetails.name,
+          description: frenchDescription,
+          image: pokemonDetails.sprites.front_default,
+        };
+      })
+    );
+    setPokemonData(pokemonArray);
+  };
+
+  useEffect(() => {
+    fetchPokemonData();
+  }, []);
 
   const getRandomQuestion = () => {
     const remainingPokemons = pokemonData.filter(
@@ -67,15 +96,15 @@ const Quiz = () => {
 
   const handleCheckAnswer = () => {
     if (!currentQuestion) return;
-  
+
     if (userAnswer.toLowerCase() === currentQuestion.answer.toLowerCase()) {
       setFeedback("Bonne réponse !");
       setScore((prevScore) => prevScore + 1);
       setCorrectPokemonImage(currentQuestion.image);
-  
+
       setUserAnswer("");
       setInputValue(""); 
-  
+
       setTimeout(() => {
         setCurrentQuestion(getRandomQuestion());
         setCorrectPokemonImage("");
@@ -85,7 +114,7 @@ const Quiz = () => {
       setFeedback("Mauvaise réponse, essaie encore !");
       setUserAnswer("");
       setInputValue(""); 
-  
+
       setTimeout(() => {
         setFeedback("");
       }, 2000);
@@ -132,16 +161,15 @@ const Quiz = () => {
               inputValue={inputValue}
               setInputValue={setInputValue}
               onSelectPokemon={handlePokemonSelect}
+              pokemonData={pokemonData} 
             />
             <button id="validate-button" onClick={handleCheckAnswer}>Valider</button>
           </div>
 
-          <p className={
-            feedback === "Mauvaise réponse, essaie encore !" ? "incorrect-answer" :
-            feedback === "Bonne réponse !" ? "correct-answer" : ""
-          }>
+          <p className={feedback === "Mauvaise réponse, essaie encore !" ? "incorrect-answer" : feedback === "Bonne réponse !" ? "correct-answer" : ""}>
             {feedback}
           </p>  
+
           {correctPokemonImage && (
             <div>
               <img
@@ -161,30 +189,5 @@ const Quiz = () => {
   );
 };
 
-export default Quiz; 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+export default Quiz;
 
