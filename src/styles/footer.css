@@ -7,11 +7,14 @@ footer p {
   margin: 0;
   font-size: 17px;
   color: white;
+}
 
+footer .link-container {
+  margin-top: 10px;
 }
 
 footer a {
-  color: #4CAF50; 
+  color: #4CAF50;
   text-decoration: none;
 }
 
@@ -19,4 +22,6 @@ footer a:hover {
   text-decoration: underline;
 }
 
-
+footer span {
+  color: white;
+}
