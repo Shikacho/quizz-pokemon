@@ -25,3 +25,32 @@ footer a:hover {
 footer span {
   color: white;
 }
+
+.bmc {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.bmc-logo {
+  width: 28px;
+  height: 28px;
+  display: block;
+}
+
+.bmc-text {
+  font-size: 17px;
+  color: white;
+  white-space: nowrap;
+}
+
+footer a.bmc-text {
+  color: white;
+}
+
+footer a.bmc-text:hover {
+  text-decoration: underline;
+}
